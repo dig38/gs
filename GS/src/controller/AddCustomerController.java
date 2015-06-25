@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-//import java.util.Enumeration;
+import java.util.Enumeration;
 import java.math.BigDecimal;
 //import java.util.Arrays;
 //import java.util.List;
@@ -45,10 +45,10 @@ public class AddCustomerController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Enumeration<String> addenum = request.getParameterNames();
+		Enumeration<String> addenum = request.getParameterNames();
+		String param = new String();
 		Customer cust = new Customer();
 		Address a1 = new Address(), a2 = new Address();
-		//String param = new String();
 		long CustId = CustomerMC.getMaxId() + 1, a2Id = AddressMC.getMaxId() + 1, a1Id = a2Id + 1;
 		System.out.println("CustId: " + CustId + ". a1Id: " + a1Id + ". a2Id: " + a2Id);
 		
@@ -117,6 +117,15 @@ public class AddCustomerController extends HttpServlet {
 		a2.setZipCode(request.getParameter(param));
 		*/
 		
+		//Testing Code
+		while(addenum.hasMoreElements())
+		{
+			param = (String) addenum.nextElement();
+			System.out.println(param);
+			System.out.println(request.getParameter(param));
+		}
+		
+		
 		//Insert Customer
 		CustomerMC.insert(cust);
 		System.out.print("\nA1: " + a1.getAddressId());
@@ -124,14 +133,7 @@ public class AddCustomerController extends HttpServlet {
 		System.out.print("\nA2: " + a2.getAddressId());
 		AddressMC.insert(a2);
 			
-		/* Testing Code
-		while(i.hasMoreElements())
-		{
-			String param = (String) i.nextElement();
-			System.out.println(param);
-			System.out.println(request.getParameter(param));
-		}
-		*/
+		
 		
 		//Send Response
 		ServletContext context = getServletContext();
