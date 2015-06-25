@@ -36,7 +36,7 @@ public class Address implements Serializable {
 	private String zipCode;
 
 	//bi-directional many-to-one association to Customer
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne()//cascade=CascadeType.ALL
 	@JoinColumn(name="CUSTOMER_ID")
 	private Customer customer;
 
