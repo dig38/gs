@@ -16,7 +16,7 @@ public class AddressMC {
     public static void insert(Address addAddress){
 		EntityManager em = DBUtil.getEmFactory().createEntityManager();
 		EntityTransaction trans = em.getTransaction();
-		
+		System.out.println("IM HERE:-------------"+ addAddress.getCustomer().getCustomerId() + "-------------!");
 		try{
 			trans.begin();
 			em.persist(addAddress);

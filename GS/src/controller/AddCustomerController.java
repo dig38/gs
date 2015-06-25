@@ -6,6 +6,9 @@ import java.math.BigDecimal;
 //import java.util.Arrays;
 //import java.util.List;
 
+
+//import javax.persistence.EntityManager;
+//import javax.persistence.EntityTransaction;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -18,6 +21,7 @@ import model.Address;
 import model.Customer;
 import modelcontroller.AddressMC;
 import modelcontroller.CustomerMC;
+//import mytools.DBUtil;
 
 /**
  * SERVLET implementation class AddCustomerController
@@ -60,6 +64,17 @@ public class AddCustomerController extends HttpServlet {
 		cust.setEmailAddress(String.valueOf(CustId));
 		cust.setBillingAddressId(BigDecimal.valueOf(a1Id));
 		cust.setShippingAddressId(BigDecimal.valueOf(a2Id));
+		/*
+			http://stackoverflow.com/questions/16572207/how-to-save-foreign-key-entity-in-jpa
+		EntityManager em = DBUtil.getEmFactory().createEntityManager();
+		EntityTransaction trans = em.getTransaction();
+		Customer customer = em.getReference(Customer.class, cust.getCustomerId());
+		entityManager.persist(newCustomerHistory);
+		*/
+		
+		
+		
+		
 		
 		a1.setAddressId(a1Id);
 		a1.setCustomer(cust);
