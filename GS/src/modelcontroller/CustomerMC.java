@@ -107,7 +107,6 @@ public class CustomerMC {
 		try{
 			Customer cust = typeQue.getSingleResult();
 			getThisId = cust.getCustomerId();
-			System.out.println("Customer max ID" +getThisId);
 			return getThisId;
 		} catch (Exception e) {
 			System.out.println(e);

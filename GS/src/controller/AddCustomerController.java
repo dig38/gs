@@ -117,7 +117,6 @@ public class AddCustomerController extends HttpServlet {
 		a2.setZipCode(request.getParameter(param));
 		*/
 		
-		
 		//Insert Customer
 		CustomerMC.insert(cust);
 		System.out.print("\nA1: " + a1.getAddressId());

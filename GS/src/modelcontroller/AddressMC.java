@@ -55,7 +55,6 @@ public class AddressMC {
 		try{
 			addressThis = typeQue.getSingleResult();
 			getThisId = addressThis.getAddressId();
-			System.out.println("\nAddress max ID" + getThisId + "\n\n");
 			return(getThisId);
 		} catch (Exception e)
 		{
