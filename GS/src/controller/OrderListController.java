@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -40,78 +39,30 @@ public class OrderListController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String CusInfo = "", ordInfo = "";
-		String custId = request.getParameter("cusID");
-		System.out.println(custId);
-		String orderId = request.getParameter("ordID");
+		String cusId = request.getParameter("cusID");
+		System.out.println(cusId);
+		int orderId = Integer.parseInt(request.getParameter("ordID"));
+		System.out.println(orderId);
 		String title = "Order Items";
-		request.setAttribute("title", title);
 		
 		try {
-			Customer cust = CustomerMC.getOneCustomer(custId);
-			CusInfo += "<h2>Customer</h2>";
-			
-			CusInfo += "<form class=\"form-horizontal\">";
-			
-			//customerID
-			CusInfo += "<div class=\"form-group\">";
-			CusInfo += "<label for=\"customerID\" class=\"col-sm-2 control-label\">Customer ID</label>";
-			CusInfo	+= "<div class=\"col-sm-10\">";
-			CusInfo	+= "<input type=\"text\" class=\"form-control\" id=\"customerID\" placeholder=\"CustomerID\" value=\" "+cust.getCustomerId() +" \" readonly >";
-			CusInfo	+= "</div>";
-			CusInfo	+= "</div>";
-			
-			//name
-			CusInfo += "<div class=\"form-group\">";
-			CusInfo += "<label for=\"name\" class=\"col-sm-2 control-label\">Name</label>";
-			CusInfo	+= "<div class=\"col-sm-10\">";
-			CusInfo += "<input type=\"text\" class=\"form-control\" id=\"name\" placeholder=\"Name\" value=\""+ cust.getFirstName() + " " + cust.getLastName() +"\" readonly />";
-			CusInfo += "</div>";
-			CusInfo	+= "</div>";
-			
-			//email
-			CusInfo += "<div class=\"form-group\">";
-			CusInfo += "<label for=\"email\" class=\"col-sm-2 control-label\">Email</label>";
-			CusInfo	+= "<div class=\"col-sm-10\">";
-			CusInfo += "<input type=\"text\" class=\"form-control\" id=\"email\" placeholder=\"Email\" value=\""+ cust.getEmailAddress() +"\" readonly />";
-			CusInfo += "</div>";
-			CusInfo	+= "</div>";
-			
-			CusInfo += "</form>";		
-			
-			request.setAttribute("CusInfo", CusInfo);
+			Customer cust = CustomerMC.getOneCustomer(cusId);
+			request.setAttribute("cust", cust);
 		} catch (Exception e){
 			request.setAttribute("message", "<div class='alert alert-danger' role='alert'>Error! This isn't the customer you're looking for. " + e + "</div>");
 		}
 		
-		NumberFormat currency = NumberFormat.getCurrencyInstance();
 		try {
-			Customer cust = CustomerMC.getOneCustomer(custId);
-			Order orders = cust.getOrders().get(Integer.parseInt(orderId));
+			Customer cust = CustomerMC.getOneCustomer(cusId);
+			Order orders = cust.getOrders().get(orderId);
 			List<OrderItem> orderItems = orders.getOrderItems(); 
-			ordInfo += "<h3>Order Items List</h3>";
-			ordInfo += "<table class=\"table table-hover\">";
-			ordInfo += "<th>ID</th>";
-			ordInfo += "<th>Product</th>";
-			ordInfo += "<th>Quantity</th>";
-			ordInfo += "<th>Discount Amount</th>";
-			
-			for(int index = 0; index < orders.getOrderItems().size(); index++){
-				ordInfo += "<tr>";
-				ordInfo += "<td>" + orderItems.get(index).getItemId() + "</td>";
-				ordInfo += "<td>" + orderItems.get(index).getProduct().getProductName() + "</td>";
-				ordInfo += "<td>" + orderItems.get(index).getQuantity() + "</td>";
-				ordInfo += "<td>" + currency.format(orderItems.get(index).getDiscountAmount()) +"</td>";
-				ordInfo += "</tr>";
-			}
-			ordInfo += "</table>";		
-			
-			request.setAttribute("ordInfo", ordInfo);
+			request.setAttribute("orderItems", orderItems);
 		} catch (Exception e){
 			request.setAttribute("message", "<div class='alert alert-danger' role='alert'>Error! These aren't the orders you're looking for. " + e + "</div>");
 		}
 		
-		
+		request.setAttribute("orderflag", true);
+		request.setAttribute("title", title);
 		getServletContext().getRequestDispatcher("/customerView.jsp").forward(request, response);
 	}//END doPost
 }//END class OrderListController
