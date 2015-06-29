@@ -37,25 +37,13 @@ public class IndexController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String tableInfo = "";
+		//String tableInfo = "";
 		String flag = "1";
 		request.setAttribute("flag", flag);
 		
 		try {
 			List<Customer> customerList = CustomerMC.getAllCustomers();
-			
-			tableInfo += "<table class=\"table table-hover\"><th>Name</th><th>ID</th><th>Email</th>";
-			for(int index = 0; index < customerList.size(); index++){
-				tableInfo += "<tr>";
-				tableInfo += "<td><a href='CustomerController?cusID=" + customerList.get(index).getCustomerId()+"'>" + customerList.get(index).getFirstName() + " " + customerList.get(index).getLastName() + "</a></td>";
-				//System.out.print(customerList.get(index).getCustomerId());
-				tableInfo += "<td>" + customerList.get(index).getCustomerId() + "</td>";
-				tableInfo += "<td>" + customerList.get(index).getEmailAddress() +"</td>";
-				tableInfo += "</tr>";	
-			}
-			tableInfo += "</table>";		
-			
-			request.setAttribute("tableInfo", tableInfo);
+			request.setAttribute("customerList", customerList);
 		} catch (Exception e){
 			//"Product List not found"
 			request.setAttribute("message", "<div class='alert alert-danger' role='alert'>Error! These aren't the customers you're looking for. " + e + "</div>");

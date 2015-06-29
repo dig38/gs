@@ -3,6 +3,7 @@
 <%@ page import = "model.Address" %>
 <%@ page import = "java.util.List" %>
 <%@ page import = "java.text.NumberFormat" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
 	Customer cust = (Customer)  request.getAttribute("cust");	
@@ -137,6 +138,14 @@
 				<th>Order Date</th>
 				<th>Shipping Amount</th>
 			</tr>
+	<%-- 	<c:forEach var="order" items="orders">
+				<tr>
+					<td><a href='OrderListController?cusID=${order.customerId}&ordID=${order.orderId}' > ${orders.orderId} </a></td>
+					<td> ${orders.getOrderDate} </td>
+					<td> ${orders.getShipAmount} </td>
+				</tr>
+		</c:forEach>
+		 --%>
 		<%	
 			NumberFormat currency = NumberFormat.getCurrencyInstance();
 			for(int index = 0; index < orders.size(); index++){ 
@@ -150,4 +159,11 @@
 		<%	
 			}//END FOR
 		%>
+		
+		
+		
+		
+		
+		
+		
 			</table>

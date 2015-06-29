@@ -40,22 +40,22 @@ public class OrderListController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cusId = request.getParameter("cusID");
-		System.out.println(cusId);
-		int orderId = Integer.parseInt(request.getParameter("ordID"));
-		System.out.println(orderId);
+		//System.out.println(cusId);
+		String orderId = request.getParameter("ordID");
+		//System.out.println(orderId);
 		String title = "Order Items";
-		
+		Customer cust;
 		try {
-			Customer cust = CustomerMC.getOneCustomer(cusId);
+			cust = CustomerMC.getOneCustomer(cusId);
 			request.setAttribute("cust", cust);
 		} catch (Exception e){
 			request.setAttribute("message", "<div class='alert alert-danger' role='alert'>Error! This isn't the customer you're looking for. " + e + "</div>");
 		}
 		
 		try {
-			Customer cust = CustomerMC.getOneCustomer(cusId);
-			Order orders = cust.getOrders().get(orderId);
-			List<OrderItem> orderItems = orders.getOrderItems(); 
+			cust = CustomerMC.getOneCustomer(cusId);
+			Order ord = cust.getOrders().get(Integer.parseInt(orderId));
+			List<OrderItem> orderItems = ord.getOrderItems(); 
 			request.setAttribute("orderItems", orderItems);
 		} catch (Exception e){
 			request.setAttribute("message", "<div class='alert alert-danger' role='alert'>Error! These aren't the orders you're looking for. " + e + "</div>");

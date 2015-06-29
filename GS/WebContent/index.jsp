@@ -19,7 +19,25 @@
 		<p class="lead">Select a customer to view their information: </p>
 	</div>
 		${message}
-		${tableInfo}
+		
+		
+		
+			<table class="table table-hover">
+			<tr>
+				<th>Name</th>
+				<th>ID</th>
+				<th>Email</th>
+			</tr>
+			<c:forEach var="customer" items="${customerList}">
+					<tr>
+						<td><a href='CustomerController?cusID=${customer.customerId}'> ${customer.firstName} ${customer.lastName}</a></td>
+						<td>${customer.customerId}</td>
+						<td>${customer.emailAddress}</td>
+					</tr>	
+			</c:forEach>
+		</table>	
+		
+		
 		<br />
 		<a style="float:right;" href="addCustomer.jsp" id="add" class="col-lg-3 col-md-3 col-sm-3 btn btn-primary">Add New Customer</a>
 <%

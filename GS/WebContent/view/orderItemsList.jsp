@@ -4,7 +4,6 @@
 <%@ page import = "model.Address" %>
 <%@ page import = "java.util.List" %>
 <%@ page import = "java.text.NumberFormat" %>
-<%	@SuppressWarnings("unchecked") List<OrderItem> orderItems = (List<OrderItem>) request.getAttribute("orderItems"); %>
 <h3>Order Items List</h3>
 <table class="table table-hover">
 	<tr>
@@ -13,7 +12,8 @@
 		<th>Quantity</th>
 		<th>Discount Amount</th>
 	</tr>
-<%	NumberFormat currency = NumberFormat.getCurrencyInstance();
+<%-- <%	@SuppressWarnings("unchecked") List<OrderItem> orderItems = (List<OrderItem>) request.getAttribute("orderItems");
+	NumberFormat currency = NumberFormat.getCurrencyInstance();
 	for(int index = 0; index < orderItems.size(); index++){ 
 %>
 	<tr>
@@ -23,5 +23,5 @@
 		<td><%=currency.format(orderItems.get(index).getDiscountAmount()) %></td>
 	</tr>
 <%	}
-%>
+%> --%>
 </table>
